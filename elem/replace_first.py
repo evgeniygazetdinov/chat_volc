@@ -2,10 +2,9 @@ from typing import Iterable
 
 
 def replace_first(items: list) -> Iterable:
-    first = items.index(0)
-    last = items.index(len(items))
-    last2 = items.pop()
-    items.insert(0, last2)
+    if len(items):
+        elem = items.pop(0) 
+        items.insert(len(items), elem)
     return items
 
 
