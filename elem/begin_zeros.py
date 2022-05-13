@@ -1,7 +1,6 @@
 def beginning_zeros(number: str) -> int:
     counter = 0
     while (int(number[counter])<=0):
-
         counter+=1
         if counter==len(number):
             break
