@@ -2,15 +2,15 @@ def nearest_value(values: set, one: int) -> int:
     # your code here
     return min(values, key=lambda x: abs(one-x))
 
-def nearest_value(values: set, target: int) -> int:
-    diff =0
-    index = None
-    for i, num in enumerate(values):
-       if abs(target-num)<int(diff):
-           diff = abs(target-num)
-           index=i
-    values = list(values)
-    return values[index]
+# def nearest_value(values: set, target: int) -> int:
+#     diff =0
+#     index = None
+#     for i, num in enumerate(values):
+#        if abs(target-num)<int(diff):
+#            diff = abs(target-num)
+#            index=i
+#     values = list(values)
+#     return values[index]
 
 
 
@@ -29,4 +29,5 @@ if __name__ == "__main__":
     assert nearest_value({5, 10, 8, 12, 89, 100}, 7) == 8
     assert nearest_value({5}, 5) == 5
     assert nearest_value({5}, 7) == 5
+    print(nearest_value([0, -2], -1))
     # print("Coding complete? Click 'Check' to earn cool rewards!")
