@@ -12,6 +12,18 @@ def nearest_value(myList: set, myNumber: int) -> int:
     myList = list(myList)
     res =  myList[negative[min_negative]]
     return res
+    #     aux = {}
+    # digits = {'bigger':[], 'lesly':[], 'equals':[]}
+    # res = 0
+    # for counter,valor in enumerate(myList):
+    #     res = myNumber-valor
+    #     if res < 0:
+    #         digits['lesly'].append(res)
+    #     elif res > 0:
+    #         digits['bigger'].append(res)
+    #     elif str(res)[0] == '-':
+    #         digits['equals'].append(res)
+
 
 if __name__ == "__main__":
     print("Example:")
