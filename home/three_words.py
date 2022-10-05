@@ -1,6 +1,33 @@
+
+
+
 def checkio(words: str) -> bool:
     # add your code here
+    def true_counter(bool_list: list) -> bool:
+        """
+        count true in result array for undestand has it more 3 -> if more 3 return TRUE
+        """
+        counter = 0
+        pointer = 0
+        while(counter < 3):
+            
+            if pointer == len(bool_list):
+                break
+            result = bool_list[pointer]
+            pointer += 1
+            if result:
+                counter += 1
+            else:
+                counter = 0
+        return counter == 3
+
+
     def check_word(my_string: str) -> bool:
+        """
+        check only one word 
+        false if it digit
+        true if it word
+        """
         res = False
         for word in my_string:
             if not word.isdigit():
@@ -8,14 +35,14 @@ def checkio(words: str) -> bool:
         return res
 
     def check_strings(word_strings: str) -> bool:
+        """
+        separate string by words for check each word
+        """
         result_strings = []
         result = word_strings.split(' ')
         for res in result:
             result_strings.append(check_word(res))
-        if False in result_strings:
-            return False
-        result = [x for x in result_strings if x]
-        return len(result) >= 3 
+        return true_counter(result_strings)
 
     return check_strings(words)
 
