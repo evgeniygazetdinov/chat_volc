@@ -1,6 +1,9 @@
+from datetime import datetime
+
 def days_diff(a: tuple[int, int, int], b: tuple[int, int, int]) -> int:
-    # your code here
-    return 0
+    first_date = datetime(year=int(a[0]), month=int(a[1]), day=int(a[2]))
+    second_date = datetime(year=int(b[0]), month=int(b[1]), day=int(b[2]))
+    return abs((second_date - first_date).days)
 
 
 print("Example:")
