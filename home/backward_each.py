@@ -6,8 +6,6 @@ def backward_string_by_word(some_string: str) -> str:
         how_many_spaces = some_string.count(' ')
         res = some_string.split()
         reverted_word = [word[::-1]for word in res]
-        reverted_word.reverse()
-        reverted_word.reverse()
         spaces += ' ' * how_many_spaces
         return spaces.join(reverted_word)
     elif len(some_string) > 2:
@@ -17,8 +15,6 @@ def backward_string_by_word(some_string: str) -> str:
         res = some_string.split()
         reverted_word = [word[::-1]for word in res]
         return ' '.join(reverted_word)
-
-        
     else:
         return some_string[::-1]
 
@@ -28,4 +24,4 @@ assert backward_string_by_word("hello world") == "olleh dlrow"
 assert backward_string_by_word("hello   world") == "olleh   dlrow"
 assert backward_string_by_word("welcome to a game") == "emoclew ot a emag"
 # TODO just count spaces beetween and write it
-backward_string_by_word('ha ha ha   this is cool')
+print(backward_string_by_word('ha ha ha   this is cool'))
