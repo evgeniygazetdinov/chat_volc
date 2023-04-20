@@ -1,36 +1,29 @@
-def find_order(text_order):
-    res = {}
-    for position, word in enumerate(text_order.split()):
-        res[position] = word
-    return res
+def is_upper_list(some_list):
+    begin = some_list[0]
+    is_upper = []
+    for one in some_list[1::]:
+        if begin < one:
+            is_upper.append(True)
+        else:
+            is_upper.append(False)
+    is_only_one_way = len(set(is_upper)) == 1
+    return is_only_one_way and list(set(is_upper))[0] == True
 
-def check_increase(list_with_numbers):
-    res = False
-    if len(list_with_numbers) <= 1:
-        return res
-    num_before = 0
-    counter = 0 
-    for num in list_with_numbers:
-        if num > num_before:
-            counter+=1
-    if counter == len(list_with_numbers):
-        res = True
-    return res
 
 def words_order(text: str, words: list) -> bool:
-    cur_order = []
-    order = find_order(text)
-    for position, value in order.items():
-        for word in words:
-            # fix position check here
-            if value == word:
-                cur_order.append(position)
-    is_increased = check_increase(cur_order)
+    order = {}
+    orders_from_word = []
+    for position, word in enumerate(text.split(' ')):
+        order[int(position)] = word
 
-    return is_increased
+    for position, word in order.items():
+        if word in words:
+            # fix here i just across one example
+            orders_from_word.append(position)
+    return is_upper_list(orders_from_word)
     
 
-
+    
 print("Example:")
 print(words_order("hi world im here", ["world", "here"]))
 

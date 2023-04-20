@@ -1,21 +1,6 @@
 # Taken from mission Acceptable Password I
 
 def is_acceptable_password(password: str) -> bool:
-    # good_len = False
-    # is_only_words = False
-    # is_only_digits = False
-    # is_acceptable = False
-    # if len(password)> 6:
-    #     good_len = True
-    # digits_in_password = [one for one in password if one.isdigit()]
-    # words_in_password = [one_word for one_word in password if not one_word.isdigit]
-
-    # is_only_digits = not(len(digits_in_password) == len(password))
-    # is_only_words = not(len(words_in_password) == len(password))
-
-    # if good_len or not is_only_digits or not is_only_words:
-    #     is_acceptable = True
-    # return is_acceptable
     words = 0
     digits = 0
     good_len = False
@@ -24,8 +9,6 @@ def is_acceptable_password(password: str) -> bool:
             digits+=1
         elif not one.isdigit() or not one.isspace():
             words+=1
-    only_words = words == len(password)
-    only_digits = digits == len(password)
     has_some_digits = digits != 0 and digits != len(password)
     has_some_words = words != 0 and words !=len(password)
     good_len = len(password) > 6
