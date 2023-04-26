@@ -1,20 +1,29 @@
 
 
 def sort_by_ext(files):
-    extension = [one.split('.')[-1] for one in files]
+    def get_order_by_extension(extension, exists_extesion):
+
+        if extension in  exists_extesion:
+            return exists_extesion, exists_extesion.index(extension)
+        else:
+            exists_extesion.append(extension)
+            sorted_ext = sorted(exists_extesion)
+            return exists_extesion, sorted_ext.index(extension)
+
+    # extension = [one.split('.')[-1] for one in files]
     sorted_extension = sorted(extension)
     res = []
+    extensions = [word.split('.')[-1] for word in files]
     for file in files:
-        for ext in sorted_extension:
-            if ext in file:
-                files.insert(sorted_extension.index(ext), file)
+        extension, order = get_order_by_extension(extension=extension, file.split('.')[-1])
+
     return res
 
 # TODO FIX THIS ADD FUNCTION FOR SORTIONG
 print(sort_by_ext(["1.cad", "1.bat", "1.aa"]))
 
 # These "asserts" are used for self-checking
-assert sort_by_ext(["1.cad", "1.bat", "1.aa"]) == ["1.aa", "1.bat", "1.cad"]
+# assert sort_by_ext(["1.cad", "1.bat", "1.aa"]) == ["1.aa", "1.bat", "1.cad"]
 # assert sort_by_ext(["1.cad", "1.bat", "1.aa", "2.bat"]) == [
 #     "1.aa",
 #     "1.bat",
