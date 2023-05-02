@@ -6,21 +6,26 @@ def is_upper_list(some_list):
             is_upper.append(True)
         else:
             is_upper.append(False)
-    is_only_one_way = len(set(is_upper)) == 1
-    return is_only_one_way and list(set(is_upper))[0] == True
+    is_only_one_way = len(set(is_upper)) == 1 
+    one_element_in_list = len(some_list) == 1 
+    return is_only_one_way and list(set(is_upper))[0] == True or one_element_in_list
 
 
 def words_order(text: str, words: list) -> bool:
     order = {}
     orders_from_word = []
     for position, word in enumerate(text.split(' ')):
-        order[int(position)] = word
-
-    for position, word in order.items():
-        if word in words:
-            # fix here i just across one example
-            orders_from_word.append(position)
-    return is_upper_list(orders_from_word)
+        order[word] = int(position)
+    if len(words) > len(set(words)):
+        return False
+    else:
+        current_order_in_compared_list = {}
+        for word in words:
+            for value, ord in order.items():
+                if word == value:
+                    current_order_in_compared_list[value] = ord
+                    # TODO defeat word not in list
+        return is_upper_list(list(current_order_in_compared_list.values()))
     
 
     
