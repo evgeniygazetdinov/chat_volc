@@ -1,10 +1,11 @@
-
 from pydantic import BaseModel
 from typing import List, Optional
+
 
 class UserCreate(BaseModel):
     user_id: Optional[int] = None
     # email: str
+
 
 class UserResponse(BaseModel):
     id: int
@@ -20,8 +21,10 @@ class PrivateChatBase(BaseModel):
     user_one_id: int
     user_two_id: int
 
+
 class PrivateChatCreate(PrivateChatBase):
     pass
+
 
 class PrivateChat(PrivateChatBase):
     id: int
@@ -30,13 +33,16 @@ class PrivateChat(PrivateChatBase):
     class Config:
         from_attributes = True
 
+
 class MessageBase(BaseModel):
     chat_id: int
     user_id: int
     text: str
 
+
 class MessageCreate(MessageBase):
     pass
+
 
 class Message(MessageBase):
     id: int
