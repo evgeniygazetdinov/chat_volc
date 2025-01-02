@@ -1,4 +1,6 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Boolean, UniqueConstraint
+from sqlalchemy.orm import relationship
+from datetime import datetime
 
 import uuid
 from chat_volc.settings import Base

@@ -1,8 +1,9 @@
 
 from pydantic import BaseModel
+from typing import List, Optional
 
 class UserCreate(BaseModel):
-    username: str
+    user_id: Optional[int] = None
     # email: str
 
 class UserResponse(BaseModel):
@@ -11,7 +12,8 @@ class UserResponse(BaseModel):
     # email: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+        # orm_mode = True
 
 
 class PrivateChatBase(BaseModel):
@@ -26,7 +28,7 @@ class PrivateChat(PrivateChatBase):
     messages: List[int]  # Список идентификаторов сообщений, связанных с чатом
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class MessageBase(BaseModel):
     chat_id: int
@@ -40,4 +42,4 @@ class Message(MessageBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True

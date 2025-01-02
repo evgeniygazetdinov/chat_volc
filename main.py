@@ -4,45 +4,52 @@ app = FastAPI()
 from chat_volc.models.models import User, PrivateChat, Message
 import uuid
 from chat_volc.settings import SessionLocal, get_db
+from chat_volc.models.schemas import UserCreate
+from fastapi import Request
 
 
 @app.get("/healf_check")
 async def healf_check():
    return {"message": "Hello World"}
 
-@app.api_route("/user/{user_id}", methods=["POST", "GET", "PUT", "DELETE"])
+
+@app.api_route("/user/", methods=["POST"], response_model=UserCreate)
+async def create_user(request: Request, db: Session = Depends(get_db), username: str = None):
+   if request.method == "POST":
+      new_user = User(uid=str(uuid.uuid4()), username=username)
+      db.add(new_user)
+      db.commit()
+      db.refresh(new_user)
+      return {"status": "User created", "user": new_user}
+
+   raise HTTPException(status_code=405, detail="Method not allowed")
+
+@app.api_route("/user/{user_id}", methods=["POST", "GET", "PUT", "DELETE"], response_model=UserCreate)
 async def manage_user(user_id: str, db: Session = Depends(get_db), username: str = None):
-    if app.request.method == "POST":
-        new_user = User(uid=str(uuid.uuid4()), username=username)
-        db.add(new_user)
-        db.commit()
-        db.refresh(new_user)
-        return {"status": "User created", "user": new_user}
+   if app.request.method == "GET":
+      user = db.query(User).filter(User.id == user_id).first()
+      if user:
+         return user
+      raise HTTPException(status_code=404, detail="User not found")
 
-    elif app.request.method == "GET":
-        user = db.query(User).filter(User.id == user_id).first()
-        if user:
-            return user
-        raise HTTPException(status_code=404, detail="User not found")
+   elif app.request.method == "PUT":
+      user = db.query(User).filter(User.id == user_id).first()
+      if not user:
+         raise HTTPException(status_code=404, detail="User not found")
+      if username:
+         user.username = username
+      db.commit()
+      return {"status": "User updated", "user": user}
 
-    elif app.request.method == "PUT":
-        user = db.query(User).filter(User.id == user_id).first()
-        if not user:
+   elif app.request.method == "DELETE":
+      user = db.query(User).filter(User.id == user_id).first()
+      if not user:
             raise HTTPException(status_code=404, detail="User not found")
-        if username:
-            user.username = username
-        db.commit()
-        return {"status": "User updated", "user": user}
+      db.delete(user)
+      db.commit()
+      return {"status": "User deleted"}
 
-    elif app.request.method == "DELETE":
-        user = db.query(User).filter(User.id == user_id).first()
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-        db.delete(user)
-        db.commit()
-        return {"status": "User deleted"}
-
-    raise HTTPException(status_code=405, detail="Method not allowed")
+   raise HTTPException(status_code=405, detail="Method not allowed")
 
 
 @app.api_route("/private_chat/{private_chat_id}", methods=["POST", "GET", "DELETE"])
@@ -119,3 +126,6 @@ def manage_message(private_chat_id: str, message_id: str, db: Session = Depends(
 
 
 
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8009, reload=True)
