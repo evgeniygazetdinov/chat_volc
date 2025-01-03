@@ -10,7 +10,8 @@ router = APIRouter(prefix="/private_chat/{private_chat_id}", tags=["messages"])
 @router.post("/message")
 async def create_message(message_data: MessageCreate, db: Session = Depends(get_db), private_chat_id: str = ""):
     new_message = Message.create_message(db=db, private_chat_id=private_chat_id,data=message_data)
-    return {"status": "Message created", "new_message": new_message}
+    return {"status": "Message created", "new_message": {'id': new_message.id, "text": new_message.text}}
+
 
 @router.get("/{message_id}")
 async def get_message_by_id(

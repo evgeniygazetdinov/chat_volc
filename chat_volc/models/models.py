@@ -93,7 +93,7 @@ class Message(Base):
         chat_users = [private_chat.user_one_id, private_chat.user_two_id]
         if user_id not in chat_users:
             raise Exception("chat or user id not exists")
-        new_message = Message(chat_id=private_chat_id, user_id=user_id, text=text)
+        new_message = Message(chat_id=private_chat_id, user_id=user_id, text=text, created_at=datetime.now())
         db.add(new_message)
         db.commit()
         return new_message
