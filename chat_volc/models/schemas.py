@@ -35,13 +35,13 @@ class PrivateChat(PrivateChatBase):
 
 
 class MessageBase(BaseModel):
-    chat_id: int
     user_id: int
     text: str
 
 
 class MessageCreate(MessageBase):
-    pass
+    user_id: int
+    text: str
 
 
 class Message(MessageBase):
