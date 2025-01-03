@@ -46,6 +46,17 @@ async def get_chat(
         else:
             raise HTTPException(status_code=404, detail="private_chat not found")
 
+@router.get("/{private_chat_id}/all_messages")
+async def get_all_chat_messages(private_chat_id: str, db: Session = Depends(get_db)):
+        private_chat = (
+            db.query(PrivateChat).filter(PrivateChat.id == private_chat_id).first()
+        )
+        if private_chat:
+            # sorted_messages = sorted(private_chat.messages, key=lambda x: x.created_at)
+            return private_chat.messages
+        else:
+            raise HTTPException(status_code=404, detail="private_chat not found")
+
 
 @router.delete("/{private_chat_id}")
 async def delete_chat(

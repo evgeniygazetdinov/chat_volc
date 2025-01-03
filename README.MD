@@ -24,7 +24,7 @@ This is a chat application built with FastAPI and SQLAlchemy. The application su
 1. Clone the repository:
    ```bash
    git clone https://github.com/evgeniygazetdinov/chat_volc.git
-   cd chat_application
+   cd chat_volc
 
 2.python -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
